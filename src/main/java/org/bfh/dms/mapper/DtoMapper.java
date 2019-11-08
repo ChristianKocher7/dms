@@ -1,6 +1,7 @@
 package org.bfh.dms.mapper;
 
 import org.bfh.dms.domain.Device;
+import org.bfh.dms.domain.User;
 import org.bfh.dms.dto.DeviceDto;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface DtoMapper {
 
-    static List<Device> mapDeviceDtos(List<DeviceDto> dtos){
+    /*static List<Device> mapDeviceDtos(List<DeviceDto> dtos){
         List<Device> devices = new ArrayList<>();
         for(DeviceDto dto : dtos){
             devices.add(Device.of(dto));
@@ -22,7 +23,9 @@ public interface DtoMapper {
             deviceDtos.add(DeviceDto.of(device));
         }
         return deviceDtos;
-    }
+    }*/
+
+
 
     static Device map(DeviceDto dto){
         return Device.of(dto);
@@ -31,4 +34,5 @@ public interface DtoMapper {
     static DeviceDto map(Device device){
         return DeviceDto.of(device);
     }
+
 }
