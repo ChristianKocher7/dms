@@ -7,6 +7,9 @@ import org.bfh.dms.utils.ScriptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
+//TODO remove system out calls before prod
 @Service
 public class ScriptService {
     private ScriptUtils scriptUtils = new ScriptUtils();
@@ -23,6 +26,8 @@ public class ScriptService {
         String deviceUser = scriptUtils.convertName(deviceDto.getDeviceUser());
         String memory = scriptUtils.convertMemory(deviceDto.getMemory());
         String hardDisks = scriptUtils.convertHardiskSizes(deviceDto.getHardDisk());
+        LocalDate biosDate = LocalDate.parse(scriptUtils.convertBiosDate(deviceDto.getBiosDate().toString()));
+        System.out.println(biosDate);
         String os = scriptUtils.convertOSName(deviceDto.getOs());
         String osBuild = scriptUtils.convertOsBuild(deviceDto.getBuild());
         System.out.println(scriptUtils.convertOsBuild(deviceDto.getBuild()));
@@ -36,7 +41,7 @@ public class ScriptService {
                 memory,
                 hardDisks,
                 deviceDto.getInstalledBiosVersion(),
-                deviceDto.getBiosDate(),
+                biosDate,
                 deviceDto.getSerialNumber(),
                 deviceDto.getMaintenance(),
                 deviceDto.getPreviousUser1(),

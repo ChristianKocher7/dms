@@ -114,4 +114,8 @@ public class ScriptUtils {
                 return "unknown";
         }
     }
+
+    public String convertBiosDate(String biosDate){
+        return biosDate.substring(0, 4) + "-" + biosDate.substring(4,6) + "-" + biosDate.substring(6,8);
+    }
 }
