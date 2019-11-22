@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor
-public class ScriptUtils {
+public final class ScriptUtils {
 
-    public String convertName(String name) {
+    public static String convertName(String name) {
         StringBuilder nameBuilder = new StringBuilder();
         String uppercaseFirstNameLetter = name.substring(0, 1).toUpperCase();
         String restOfFirstName = name.substring(1, name.indexOf('.'));
@@ -23,7 +23,7 @@ public class ScriptUtils {
         return nameBuilder.toString();
     }
 
-    public String convertMemory(String memoryInBytes) {
+    public static String convertMemory(String memoryInBytes) {
         Double memoryInBytesDouble = Double.parseDouble(memoryInBytes);
         Double memoryInGigs = memoryInBytesDouble / 1024 / 1024 / 1024;
         long memoryInGigsRounded = Math.round(memoryInGigs);
@@ -31,7 +31,7 @@ public class ScriptUtils {
         return memoryInGigsRounded + " GB";
     }
 
-    public String convertHardiskSizes(String hardDisks) {
+    public static String convertHardiskSizes(String hardDisks) {
         List<String> hardDiskSizes = Arrays.asList(hardDisks.split("::"));
         StringBuilder stringBuilder = new StringBuilder();
         String separator = "";
@@ -52,7 +52,7 @@ public class ScriptUtils {
         return stringBuilder.toString();
     }
 
-    public String convertOSName(String os) {
+    public static String convertOSName(String os) {
         List<String> osInfos = Arrays.asList(os.split("::"));
         if (osInfos.size() == 2) {
             String version = osInfos.get(0).substring(0, osInfos.get(0).indexOf('|'));
@@ -63,7 +63,7 @@ public class ScriptUtils {
         return "unknown";
     }
 
-    public String getFormattedOsString(String version, String architecture) {
+    public static String getFormattedOsString(String version, String architecture) {
         switch (version) {
             case "Microsoft Windows 10 Pro":
                 return "Win10" + getFormattedArchitectureString(architecture) + "Pro";
@@ -76,7 +76,7 @@ public class ScriptUtils {
         }
     }
 
-    public String getFormattedArchitectureString(String architecture) {
+    public static String getFormattedArchitectureString(String architecture) {
         String lowercaseArchitecture = architecture.toLowerCase();
         switch (lowercaseArchitecture) {
             case "64-bit":
@@ -92,7 +92,7 @@ public class ScriptUtils {
         }
     }
 
-    public String convertOsBuild(String osBuild) {
+    public static String convertOsBuild(String osBuild) {
         switch (osBuild) {
             case "10.0.18362":
                 return "1903";
@@ -115,7 +115,7 @@ public class ScriptUtils {
         }
     }
 
-    public String convertBiosDate(String biosDate){
-        return biosDate.substring(0, 4) + "-" + biosDate.substring(4,6) + "-" + biosDate.substring(6,8);
+    public static String convertBiosDate(String biosDate) {
+        return biosDate.substring(0, 4) + "-" + biosDate.substring(4, 6) + "-" + biosDate.substring(6, 8);
     }
 }
