@@ -14,12 +14,12 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(value = "/api")
-public class AdminController {
+public class DeviceController {
 
     private DeviceService deviceService;
 
     @Autowired
-    public AdminController(DeviceService deviceService) {
+    public DeviceController(DeviceService deviceService) {
         this.deviceService = deviceService;
     }
 
@@ -34,6 +34,5 @@ public class AdminController {
         System.out.println("getting logged in user" + user.getName());
         return user;
     }
-
 
 }

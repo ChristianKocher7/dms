@@ -7,8 +7,8 @@ public interface DtoMapper {
     static Device map(DeviceDto deviceDto) {
         return Device.of(deviceDto.getTimestamp(),
                 deviceDto.getName(),
-                deviceDto.getModell(),
-                deviceDto.getBenutzer(),
+                deviceDto.getModel(),
+                deviceDto.getDeviceUser(),
                 deviceDto.getOs(),
                 deviceDto.getBuild(),
                 deviceDto.getCpu(),
@@ -16,18 +16,18 @@ public interface DtoMapper {
                 deviceDto.getHardDisk(),
                 deviceDto.getInstalledBiosVersion(),
                 deviceDto.getBiosDate(),
-                deviceDto.getSeriennummer(),
-                deviceDto.getWartung(),
-                deviceDto.getVorherigerBenutzer1(),
-                deviceDto.getVorherigerBenutzer2(),
+                deviceDto.getSerialNumber(),
+                deviceDto.getMaintenance(),
+                deviceDto.getPreviousUser1(),
+                deviceDto.getPreviousUser2(),
                 deviceDto.getTeamviewerId());
     }
 
     static DeviceDto map(Device device) {
         return DeviceDto.of(device.getTimestamp(),
                 device.getName(),
-                device.getModell(),
-                device.getBenutzer(),
+                device.getModel(),
+                device.getDeviceUser(),
                 device.getOs(),
                 device.getBuild(),
                 device.getCpu(),
@@ -35,10 +35,10 @@ public interface DtoMapper {
                 device.getHardDisk(),
                 device.getInstalledBiosVersion(),
                 device.getBiosDate(),
-                device.getSeriennummer(),
-                device.getWartung(),
-                device.getVorherigerBenutzer1(),
-                device.getVorherigerBenutzer2(),
+                device.getSerialNumber(),
+                device.getMaintenance(),
+                device.getPreviousUser1(),
+                device.getPreviousUser2(),
                 device.getTeamviewerId());
     }
 
