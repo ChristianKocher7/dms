@@ -3,6 +3,8 @@ package org.bfh.dms.mapper;
 import org.bfh.dms.domain.Device;
 import org.bfh.dms.dto.DeviceDto;
 
+import java.time.LocalDate;
+
 public interface DtoMapper {
     static Device map(DeviceDto deviceDto) {
         return Device.of(deviceDto.getTimestamp(),
@@ -15,7 +17,7 @@ public interface DtoMapper {
                 deviceDto.getMemory(),
                 deviceDto.getHardDisk(),
                 deviceDto.getInstalledBiosVersion(),
-                deviceDto.getBiosDate(),
+                LocalDate.parse(deviceDto.getBiosDate()),
                 deviceDto.getSerialNumber(),
                 deviceDto.getMaintenance(),
                 deviceDto.getPreviousUser1(),
@@ -34,7 +36,7 @@ public interface DtoMapper {
                 device.getMemory(),
                 device.getHardDisk(),
                 device.getInstalledBiosVersion(),
-                device.getBiosDate(),
+                device.getBiosDate().toString(),
                 device.getSerialNumber(),
                 device.getMaintenance(),
                 device.getPreviousUser1(),

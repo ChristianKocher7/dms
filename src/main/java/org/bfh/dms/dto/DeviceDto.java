@@ -23,7 +23,7 @@ public class DeviceDto {
     private String hardDisk;
     private String installedBiosVersion;
 
-    private LocalDate biosDate;
+    private String biosDate;
 
     private String serialNumber;
 
@@ -43,7 +43,7 @@ public class DeviceDto {
                                String memory,
                                String hardDisk,
                                String installedBiosVersion,
-                               LocalDate biosDate,
+                               String biosDate,
                                String serialNumber,
                                LocalDate maintenance,
                                String previousUser1,

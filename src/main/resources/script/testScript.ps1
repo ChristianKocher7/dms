@@ -29,8 +29,6 @@ If ($User -ne "") {
     $SerialNbr = $BIOS.SerialNumber
     $Harddisks = Get-WmiObject win32_diskdrive | ?{$_.interfacetype -eq "IDE" -or $_.interfacetype -eq "SCSI" }
 
-    $DiskCount = $Harddisks | measure
-    $DiskCount = $DiskCount.Count
     $HarddiskInfo = " "
     $Separator = " "
 
@@ -50,12 +48,6 @@ If ($User -ne "") {
     # Get Windows 10 Build (1709 should be standard)
     # ===================================================================================
     $OS_Build = (Get-WmiObject Win32_OperatingSystem).Version
-
-    # Convert BIOS Date in readable format
-    $Year = $BIOS_Date.SubString(0,4)
-    $Month = $BIOS_Date.SubString(4,2)
-    $Day =$BIOS_Date.SubString(6,2)
-    $BIOS_Date = $Year+"-"+$Month+"-"+$Day
 
     $JSON = @{
         timestamp = $TimeStamp
@@ -77,5 +69,4 @@ If ($User -ne "") {
     } | ConvertTo-Json
 
     Invoke-WebRequest -Uri http://localhost:8080/script/device -Method POST -Body $JSON -ContentType "application/json"
-
 }
