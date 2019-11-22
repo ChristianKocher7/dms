@@ -1,11 +1,11 @@
 package org.bfh.dms.utils;
 
-import org.springframework.stereotype.Service;
+import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+@NoArgsConstructor
 public class ScriptUtils {
 
     public String convertName(String name) {

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ScriptService {
-    @Autowired
-    private ScriptUtils scriptUtils;
+    private ScriptUtils scriptUtils = new ScriptUtils();
     @Autowired
     private DeviceRepository deviceRepository;
 
