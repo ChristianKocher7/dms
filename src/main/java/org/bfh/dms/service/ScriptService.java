@@ -20,7 +20,7 @@ public class ScriptService {
     }
 
     private Device processDeviceDto(DeviceDto deviceDto) {
-        String benutzer = scriptUtils.convertName(deviceDto.getDeviceUser());
+        String deviceUser = scriptUtils.convertName(deviceDto.getDeviceUser());
         String memory = scriptUtils.convertMemory(deviceDto.getMemory());
         String hardDisks = scriptUtils.convertHardiskSizes(deviceDto.getHardDisk());
         String os = scriptUtils.convertOSName(deviceDto.getOs());
@@ -29,7 +29,7 @@ public class ScriptService {
         return Device.of(deviceDto.getTimestamp(),
                 deviceDto.getName(),
                 deviceDto.getModel(),
-                benutzer,
+                deviceUser,
                 os,
                 osBuild,
                 deviceDto.getCpu(),
