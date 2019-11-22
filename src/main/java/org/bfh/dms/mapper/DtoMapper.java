@@ -1,38 +1,45 @@
 package org.bfh.dms.mapper;
 
 import org.bfh.dms.domain.Device;
-import org.bfh.dms.domain.User;
 import org.bfh.dms.dto.DeviceDto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public interface DtoMapper {
-
-    /*static List<Device> mapDeviceDtos(List<DeviceDto> dtos){
-        List<Device> devices = new ArrayList<>();
-        for(DeviceDto dto : dtos){
-            devices.add(Device.of(dto));
-        }
-        return devices;
+    static Device map(DeviceDto deviceDto) {
+        return Device.of(deviceDto.getTimestamp(),
+                deviceDto.getName(),
+                deviceDto.getModell(),
+                deviceDto.getBenutzer(),
+                deviceDto.getOs(),
+                deviceDto.getBuild(),
+                deviceDto.getCpu(),
+                deviceDto.getMemory(),
+                deviceDto.getHardDisk(),
+                deviceDto.getInstalledBiosVersion(),
+                deviceDto.getBiosDate(),
+                deviceDto.getSeriennummer(),
+                deviceDto.getWartung(),
+                deviceDto.getVorherigerBenutzer1(),
+                deviceDto.getVorherigerBenutzer2(),
+                deviceDto.getTeamviewerId());
     }
 
-    static List<DeviceDto> mapDevices(List<Device> devices){
-        List<DeviceDto> deviceDtos = new ArrayList<>();
-        for(Device device : devices){
-            deviceDtos.add(DeviceDto.of(device));
-        }
-        return deviceDtos;
-    }*/
-
-
-
-    static Device map(DeviceDto dto){
-        return Device.of(dto);
-    }
-
-    static DeviceDto map(Device device){
-        return DeviceDto.of(device);
+    static DeviceDto map(Device device) {
+        return DeviceDto.of(device.getTimestamp(),
+                device.getName(),
+                device.getModell(),
+                device.getBenutzer(),
+                device.getOs(),
+                device.getBuild(),
+                device.getCpu(),
+                device.getMemory(),
+                device.getHardDisk(),
+                device.getInstalledBiosVersion(),
+                device.getBiosDate(),
+                device.getSeriennummer(),
+                device.getWartung(),
+                device.getVorherigerBenutzer1(),
+                device.getVorherigerBenutzer2(),
+                device.getTeamviewerId());
     }
 
 }
