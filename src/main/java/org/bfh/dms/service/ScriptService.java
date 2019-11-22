@@ -12,7 +12,7 @@ import java.time.LocalDate;
 //TODO remove system out calls before prod
 @Service
 public class ScriptService {
-    private ScriptUtils scriptUtils = new ScriptUtils();
+
     @Autowired
     private DeviceRepository deviceRepository;
 
@@ -23,14 +23,14 @@ public class ScriptService {
     }
 
     private Device processDeviceDto(DeviceDto deviceDto) {
-        String deviceUser = scriptUtils.convertName(deviceDto.getDeviceUser());
-        String memory = scriptUtils.convertMemory(deviceDto.getMemory());
-        String hardDisks = scriptUtils.convertHardiskSizes(deviceDto.getHardDisk());
-        LocalDate biosDate = LocalDate.parse(scriptUtils.convertBiosDate(deviceDto.getBiosDate().toString()));
+        String deviceUser = ScriptUtils.convertName(deviceDto.getDeviceUser());
+        String memory = ScriptUtils.convertMemory(deviceDto.getMemory());
+        String hardDisks = ScriptUtils.convertHardiskSizes(deviceDto.getHardDisk());
+        LocalDate biosDate = LocalDate.parse(ScriptUtils.convertBiosDate(deviceDto.getBiosDate().toString()));
         System.out.println(biosDate);
-        String os = scriptUtils.convertOSName(deviceDto.getOs());
-        String osBuild = scriptUtils.convertOsBuild(deviceDto.getBuild());
-        System.out.println(scriptUtils.convertOsBuild(deviceDto.getBuild()));
+        String os = ScriptUtils.convertOSName(deviceDto.getOs());
+        String osBuild = ScriptUtils.convertOsBuild(deviceDto.getBuild());
+        System.out.println(ScriptUtils.convertOsBuild(deviceDto.getBuild()));
         return Device.of(deviceDto.getTimestamp(),
                 deviceDto.getName(),
                 deviceDto.getModel(),
