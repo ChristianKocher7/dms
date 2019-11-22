@@ -3,7 +3,6 @@ package org.bfh.dms.service;
 import org.bfh.dms.domain.Device;
 import org.bfh.dms.dto.DeviceDto;
 import org.bfh.dms.mapper.DtoMapper;
-import org.bfh.dms.mock.MockFactory;
 import org.bfh.dms.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,6 @@ public class DeviceService {
     private DeviceRepository deviceRepository;
 
     public List<DeviceDto> getAllDevices() {
-        System.out.println("saving new device to db....");
-        saveDevice(MockFactory.createDeviceDto());
-        System.out.println("device saved");
         List<Device> devices = deviceRepository.findAll();
         List<DeviceDto> deviceDtos = new ArrayList<>();
         System.out.println("mapping dtos...");
@@ -28,9 +24,5 @@ public class DeviceService {
             deviceDtos.add(DtoMapper.map(device));
         }
         return deviceDtos;
-    }
-
-    public void saveDevice(DeviceDto deviceDto) {
-        deviceRepository.save(DtoMapper.map(deviceDto));
     }
 }
