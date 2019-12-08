@@ -8,12 +8,13 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/")
-public class UserInfoController {
+public class UserController {
 
     @GetMapping(value = "/user")
     public Principal user(Principal user) {
         System.out.println("getting logged in user" + user.getName());
         return user;
     }
+
 
 }
