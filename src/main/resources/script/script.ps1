@@ -209,7 +209,7 @@ Function Test-Access ([string]$DomainName,[string]$FilePath) {
 }
 
 Function ConvertColumn {
-    # The function returns the excel columne name of a given number
+    # The function returns the excel columne deviceName of a given number
     Param (
         [int]$ColumnNbr)
     $Remainder = 0

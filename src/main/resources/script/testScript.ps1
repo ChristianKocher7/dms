@@ -4,6 +4,7 @@ If ($User.ToUpper() -like "SVC_*") { $User = "" }
 ElseIf ($User.ToUpper() -eq "ADMINISTRATOR") { $User = "" }
 ElseIf ($User.ToUpper() -eq "PUBLIC") { $User = "" }
 
+#check if the server is present
 If ($User -ne "") {
     If ($User.IndexOf(".") -lt 0) {
         $User= $User.ToUpper()
@@ -51,7 +52,7 @@ If ($User -ne "") {
 
     $JSON = @{
         timestamp = $TimeStamp
-        name = $Name
+        deviceName = $Name
         model = $Model
         deviceUser = $User
         os = $OS_Version
@@ -68,5 +69,6 @@ If ($User -ne "") {
         teamviewerId = "123546"
     } | ConvertTo-Json
 
+    #basic error handling
     Invoke-WebRequest -Uri http://localhost:8080/script/device -Method POST -Body $JSON -ContentType "application/json"
 }

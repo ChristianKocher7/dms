@@ -1,0 +1,11 @@
+org.bfh.dms
+org.bfh.dms.api.service
+org.bfh.dms.api.utils
+org.bfh.dms.core.domain
+org.bfh.dms.core.dto
+org.bfh.dms.core.mapper
+org.bfh.dms.core.repository
+org.bfh.dms.infrastructure.jpa
+org.bfh.dms.infrastructure.mock
+org.bfh.dms.infrastructure.repository
+org.bfh.dms.infrastructure.rest
