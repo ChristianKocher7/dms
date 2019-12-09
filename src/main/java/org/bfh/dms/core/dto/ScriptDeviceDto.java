@@ -7,14 +7,15 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 /**
- * Data Transfer Object for the device entity. A device entity should never be shared between architecture layers or
- * interfaces outside of the application context. This class is a mappable copy of the entity of the Device entity
+ * Data Transfer Object for the device entity through the REST interface for the scripts.
+ * A device entity should never be shared between architecture layers or interfaces outside
+ * of the application context. This class is a mappable copy of the Device entity
  * and is used to transfer Device data between layers and interfaces.
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class DeviceDto {
+public class ScriptDeviceDto {
 
     private LocalDate timestamp;
 
@@ -41,7 +42,7 @@ public class DeviceDto {
     private boolean obsolete;
 
     /**
-     * Static factory method for easily creating a device entity
+     * Static factory method for easily creating a device DTO
      * Parameters are self explanatory
      * @param timestamp
      * @param deviceName
@@ -62,24 +63,24 @@ public class DeviceDto {
      * @param obsolete this flag indicates if a device has been restaged making the entry obsolete
      * @return returns new completely mapped Device DTO
      */
-    public static DeviceDto of(LocalDate timestamp,
-                               String deviceName,
-                               String model,
-                               String deviceUser,
-                               String os,
-                               String build,
-                               String cpu,
-                               String memory,
-                               String hardDisk,
-                               String installedBiosVersion,
-                               String biosDate,
-                               String serialNumber,
-                               LocalDate maintenance,
-                               String previousUser1,
-                               String previousUser2,
-                               int teamviewerId,
-                               boolean obsolete) {
-        DeviceDto instance = new DeviceDto();
+    public static ScriptDeviceDto of(LocalDate timestamp,
+                                     String deviceName,
+                                     String model,
+                                     String deviceUser,
+                                     String os,
+                                     String build,
+                                     String cpu,
+                                     String memory,
+                                     String hardDisk,
+                                     String installedBiosVersion,
+                                     String biosDate,
+                                     String serialNumber,
+                                     LocalDate maintenance,
+                                     String previousUser1,
+                                     String previousUser2,
+                                     int teamviewerId,
+                                     boolean obsolete) {
+        ScriptDeviceDto instance = new ScriptDeviceDto();
         instance.timestamp = timestamp;
         instance.deviceName = deviceName;
         instance.model = model;

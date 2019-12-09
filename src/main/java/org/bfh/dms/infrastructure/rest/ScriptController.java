@@ -1,6 +1,6 @@
 package org.bfh.dms.infrastructure.rest;
 
-import org.bfh.dms.core.dto.DeviceDto;
+import org.bfh.dms.core.dto.ScriptDeviceDto;
 import org.bfh.dms.api.service.ScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +24,10 @@ public class ScriptController {
 
     /**
      * POST mapping at url '/device' which hands the device DTO from the request body to our script service for processing
-     * @param deviceDto DTO to be processed
+     * @param scriptDeviceDto DTO to be processed
      */
     @PostMapping("/device")
-    public void receiveDeviceLoginInformation(@RequestBody DeviceDto deviceDto) {
-        scriptService.processDevice(deviceDto);
+    public void receiveDeviceLoginInformation(@RequestBody ScriptDeviceDto scriptDeviceDto) {
+        scriptService.processDevice(scriptDeviceDto);
     }
 }

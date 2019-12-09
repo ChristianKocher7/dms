@@ -1,7 +1,7 @@
 package org.bfh.dms.infrastructure.rest;
 
-import org.bfh.dms.core.dto.DeviceDto;
 import org.bfh.dms.api.service.DeviceService;
+import org.bfh.dms.core.dto.GuiDeviceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +36,7 @@ public class DeviceController {
      * @return list of deviceDtos present in DB
      */
     @GetMapping(value = "/devices")
-    public List<DeviceDto> getAllDevices() {
+    public List<GuiDeviceDto> getAllDevices() {
         System.out.println("getting all devices");
         return deviceService.getAllDevices();
     }

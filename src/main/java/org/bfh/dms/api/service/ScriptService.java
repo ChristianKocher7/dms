@@ -2,7 +2,7 @@ package org.bfh.dms.api.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.bfh.dms.core.domain.Device;
-import org.bfh.dms.core.dto.DeviceDto;
+import org.bfh.dms.core.dto.ScriptDeviceDto;
 import org.bfh.dms.core.repository.DeviceRepository;
 import org.bfh.dms.api.utils.ScriptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,35 +13,56 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This service is called by the Script REST Controller and contains the business logic to handle
+ * all REST calls from the script installed on the devices. The main purpose is to decide how to save
+ * the devices. If a device's serial number is not present in the DB then a new Device is created.
+ * If a serial number is present, the name of the device has not changed and the user who has logged
+ * in to the device is the same as last time the timestamp is simply updated. If the user has changed
+ * since last time then the timestamp is updated and the device user is updated. If the device name
+ * has changed then the previous entries are marked as obsolete and a new Entry is added for the
+ * specific serial number.
+ */
 @Service
 @Slf4j
 public class ScriptService {
 
-    @Autowired
     private DeviceRepository deviceRepository;
 
+    @Autowired
+    public ScriptService(DeviceRepository deviceRepository){
+        this.deviceRepository = deviceRepository;
+    }
+
+    /**
+     * this method is used to process a device which has been sent to the ScriptController.
+     * It decides if it should update an existing entry or create a new one in the database
+     * @param scriptDeviceDto device to be updated or added
+     * @return the processed device
+     */
     //TODO improve this code
+    //TODO all actions should update timestamp
     @Transactional
-    public void processDevice(DeviceDto deviceDto) {
-        List<Device> deviceList = deviceRepository.findBySerialNumber(deviceDto.getSerialNumber());
+    public Device processDevice(ScriptDeviceDto scriptDeviceDto) {
+        List<Device> deviceList = deviceRepository.findBySerialNumber(scriptDeviceDto.getSerialNumber());
         if (!deviceList.isEmpty()) {
-            log.info("{} devices found with serial number: {}", deviceList.size(), deviceDto.getSerialNumber());
-            Optional<Device> optSameNameDevice = deviceList.stream().filter(device -> device.getDeviceName().equals(deviceDto.getDeviceName())).findFirst();
+            log.info("{} devices found with serial number: {}", deviceList.size(), scriptDeviceDto.getSerialNumber());
+            Optional<Device> optSameNameDevice = deviceList.stream().filter(device -> device.getDeviceName().equals(scriptDeviceDto.getDeviceName())).findFirst();
             if (optSameNameDevice.isPresent()) {
-                log.info("Device with deviceName {} is already present", deviceDto.getDeviceName());
+                log.info("Device with deviceName {} is already present", scriptDeviceDto.getDeviceName());
                 Device sameNameDevice = optSameNameDevice.get();
-                if (sameNameDevice.getDeviceUser().equals(ScriptUtils.convertUserName(deviceDto.getDeviceUser()))) {
+                if (sameNameDevice.getDeviceUser().equals(ScriptUtils.convertUserName(scriptDeviceDto.getDeviceUser()))) {
                     log.info("Device with name {} has been accessed by same user as last time.", sameNameDevice.getDeviceUser());
                     sameNameDevice.setTimestamp(LocalDate.now());
-                    deviceRepository.save(sameNameDevice);
                     log.info("Updated login timestamp for device with name {}", sameNameDevice.getDeviceUser());
+                    return deviceRepository.save(sameNameDevice);
                 } else {
-                    log.info("Device with name {} has been accessed by a different user.", deviceDto.getDeviceName());
+                    log.info("Device with name {} has been accessed by a different user.", scriptDeviceDto.getDeviceName());
                     sameNameDevice.setPreviousUser2(sameNameDevice.getPreviousUser1());
                     sameNameDevice.setPreviousUser1(sameNameDevice.getDeviceUser());
-                    sameNameDevice.setDeviceUser(ScriptUtils.convertUserName(deviceDto.getDeviceUser()));
-                    deviceRepository.save(sameNameDevice);
-                    log.info("Device user and previous users of the device has been updated for device with name {}", deviceDto.getDeviceName());
+                    sameNameDevice.setDeviceUser(ScriptUtils.convertUserName(scriptDeviceDto.getDeviceUser()));
+                    log.info("Device user and previous users of the device has been updated for device with name {}", scriptDeviceDto.getDeviceName());
+                    return deviceRepository.save(sameNameDevice);
                 }
             } else {
                 log.info("Restaged device: setting old entry to obsolete and creating new device entry with new deviceName.");
@@ -51,42 +72,47 @@ public class ScriptService {
                         deviceRepository.save(device);
                     }
                 }
-                deviceRepository.save(createNewDevice(deviceDto));
-                log.info("Device with name {} has been added.", deviceDto.getDeviceName());
+                log.info("Device with name {} has been added.", scriptDeviceDto.getDeviceName());
+                return deviceRepository.save(createNewDevice(scriptDeviceDto));
             }
         } else {
-            log.info("A new device with serial number {} has been detected.", deviceDto.getSerialNumber());
+            log.info("A new device with serial number {} has been detected.", scriptDeviceDto.getSerialNumber());
             log.info("Saving new device");
-            deviceRepository.save(createNewDevice(deviceDto));
-            log.info("New device successfully saved!");
+            return deviceRepository.save(createNewDevice(scriptDeviceDto));
         }
     }
 
-    private Device createNewDevice(DeviceDto deviceDto) {
-        String deviceUser = ScriptUtils.convertUserName(deviceDto.getDeviceUser());
-        String memory = ScriptUtils.convertMemory(deviceDto.getMemory());
-        String hardDisks = ScriptUtils.convertHarddiskSizes(deviceDto.getHardDisk());
-        LocalDate biosDate = LocalDate.parse(ScriptUtils.convertBiosDate(deviceDto.getBiosDate()));
+    /**
+     * creates a new device based on the ScriptDeviceDto sent to the controller. DeviceUtils is used
+     * for formatting values so they are saved correctly in the database.
+     * @param scriptDeviceDto device to be converted
+     * @return the device with formatted values
+     */
+    public Device createNewDevice(ScriptDeviceDto scriptDeviceDto) {
+        String deviceUser = ScriptUtils.convertUserName(scriptDeviceDto.getDeviceUser());
+        String memory = ScriptUtils.convertMemory(scriptDeviceDto.getMemory());
+        String hardDisks = ScriptUtils.convertHarddiskSizes(scriptDeviceDto.getHardDisk());
+        LocalDate biosDate = LocalDate.parse(ScriptUtils.convertBiosDate(scriptDeviceDto.getBiosDate()));
         log.info(biosDate.toString());
-        String os = ScriptUtils.convertOSName(deviceDto.getOs());
-        String osBuild = ScriptUtils.convertOsBuild(deviceDto.getBuild());
-        log.info(ScriptUtils.convertOsBuild(deviceDto.getBuild()));
-        return Device.of(deviceDto.getTimestamp(),
-                deviceDto.getDeviceName(),
-                deviceDto.getModel(),
+        String os = ScriptUtils.convertOSName(scriptDeviceDto.getOs());
+        String osBuild = ScriptUtils.convertOsBuild(scriptDeviceDto.getBuild());
+        log.info(ScriptUtils.convertOsBuild(scriptDeviceDto.getBuild()));
+        return Device.of(scriptDeviceDto.getTimestamp(),
+                scriptDeviceDto.getDeviceName(),
+                scriptDeviceDto.getModel(),
                 deviceUser,
                 os,
                 osBuild,
-                deviceDto.getCpu(),
+                scriptDeviceDto.getCpu(),
                 memory,
                 hardDisks,
-                deviceDto.getInstalledBiosVersion(),
+                scriptDeviceDto.getInstalledBiosVersion(),
                 biosDate,
-                deviceDto.getSerialNumber(),
-                deviceDto.getMaintenance(),
-                deviceDto.getPreviousUser1(),
-                deviceDto.getPreviousUser2(),
-                deviceDto.getTeamviewerId(),
+                scriptDeviceDto.getSerialNumber(),
+                scriptDeviceDto.getMaintenance(),
+                scriptDeviceDto.getPreviousUser1(),
+                scriptDeviceDto.getPreviousUser2(),
+                scriptDeviceDto.getTeamviewerId(),
                 false);
     }
 }
