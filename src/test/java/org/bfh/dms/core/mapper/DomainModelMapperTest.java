@@ -22,8 +22,19 @@ public class DomainModelMapperTest {
     }
 
     @Test
-    public void shouldMapDeviceDto() {
-        ScriptDeviceDto deviceDto = MockFactory.createDeviceDto();
+    public void shouldMapScrpitDeviceDto() {
+        ScriptDeviceDto deviceDto = MockFactory.createScriptDeviceDto();
+        Device device = DomainModelMapper.map(deviceDto);
+        assertEquals(device.getDeviceUser(), deviceDto.getDeviceUser());
+        assertEquals(device.getDeviceName(), deviceDto.getDeviceName());
+        assertEquals(device.getCpu(), deviceDto.getCpu());
+        assertEquals(device.getMemory(), deviceDto.getMemory());
+        assertEquals(device.getMaintenance(), deviceDto.getMaintenance());
+    }
+
+    @Test
+    public void shouldMapGuiDeviceDto() {
+        GuiDeviceDto deviceDto = MockFactory.createGuiDeviceDto();
         Device device = DomainModelMapper.map(deviceDto);
         assertEquals(device.getDeviceUser(), deviceDto.getDeviceUser());
         assertEquals(device.getDeviceName(), deviceDto.getDeviceName());
