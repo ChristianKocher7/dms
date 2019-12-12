@@ -53,4 +53,10 @@ public class DeviceController {
         return user;
     }
 
+    @GetMapping(value = "/basicuser")
+    public Principal basicuser(Principal user) {
+        System.out.println("getting logged in user" + user.getName());
+        return user;
+    }
+
 }
