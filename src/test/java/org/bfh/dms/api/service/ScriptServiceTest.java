@@ -38,7 +38,7 @@ public class ScriptServiceTest {
     @Test
     public void shouldSaveNewDevice(){
         //given
-        ScriptDeviceDto scriptDeviceDto = MockFactory.createDeviceDto();
+        ScriptDeviceDto scriptDeviceDto = MockFactory.createScriptDeviceDto();
         doReturn(new ArrayList<Device>()).when(deviceRepository).findBySerialNumber(anyString());
 
         //when
@@ -51,7 +51,7 @@ public class ScriptServiceTest {
     @Test
     public void shouldCreateNewEntryAndUpdateObsoleteFlagOfOldEntry(){
         //given
-        ScriptDeviceDto scriptDeviceDto = MockFactory.createDeviceDto();
+        ScriptDeviceDto scriptDeviceDto = MockFactory.createScriptDeviceDto();
         Device device = MockFactory.createDevice();
         device.setDeviceName("another name");
         List<Device> deviceList = new ArrayList<>();
@@ -68,7 +68,7 @@ public class ScriptServiceTest {
     @Test
     public void shouldUpdateTimestamp(){
         //given
-        ScriptDeviceDto scriptDeviceDto = MockFactory.createDeviceDto();
+        ScriptDeviceDto scriptDeviceDto = MockFactory.createScriptDeviceDto();
         Device device = MockFactory.createDevice();
         List<Device> deviceList = new ArrayList<>();
         deviceList.add(device);
@@ -84,7 +84,7 @@ public class ScriptServiceTest {
     @Test
     public void shouldUpdateUsers(){
         //given
-        ScriptDeviceDto scriptDeviceDto = MockFactory.createDeviceDto();
+        ScriptDeviceDto scriptDeviceDto = MockFactory.createScriptDeviceDto();
         Device device = MockFactory.createDevice();
         device.setDeviceUser("Someone Else");
         List<Device> deviceList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class ScriptServiceTest {
     @Test
     public void shouldCreateNewDevice(){
         //given
-        ScriptDeviceDto scriptDeviceDto = MockFactory.createDeviceDto();
+        ScriptDeviceDto scriptDeviceDto = MockFactory.createScriptDeviceDto();
 
         //when
         Device returnedDevice = scriptService.createNewDevice(scriptDeviceDto);
