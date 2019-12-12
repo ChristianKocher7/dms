@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DeviceServiceTest {
+public class DeviceServiceIT {
 
     @MockBean
     private DeviceRepository deviceRepository;
