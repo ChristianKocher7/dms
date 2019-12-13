@@ -1,14 +1,20 @@
 package org.bfh.dms.infrastructure.rest;
 
 import org.bfh.dms.api.service.DeviceService;
+import org.bfh.dms.api.service.ImporterService;
+import org.bfh.dms.api.service.SearchService;
+import org.bfh.dms.core.domain.Device;
 import org.bfh.dms.core.dto.GuiDeviceDto;
+import org.bfh.dms.core.mapper.DomainModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,9 +32,15 @@ public class DeviceController {
      */
     private DeviceService deviceService;
 
+    private SearchService searchService;
+
+    private ImporterService importerService;
+
     @Autowired
-    public DeviceController(DeviceService deviceService) {
+    public DeviceController(DeviceService deviceService, SearchService searchService, ImporterService importerService) {
         this.deviceService = deviceService;
+        this.searchService = searchService;
+        this.importerService = importerService;
     }
 
     /**
@@ -51,6 +63,22 @@ public class DeviceController {
     public Principal user(Principal user) {
         System.out.println("getting logged in user" + user.getName());
         return user;
+    }
+
+    @GetMapping(value = "/device/{keyword}")
+    public List<GuiDeviceDto> search(@PathVariable String keyword){
+        List<Device> search = searchService.search(keyword.toLowerCase());
+        List<GuiDeviceDto> guiDeviceDtoList = new ArrayList<>();
+        for(Device device : search){
+            guiDeviceDtoList.add(DomainModelMapper.map(device));
+        }
+        return guiDeviceDtoList;
+    }
+
+    @GetMapping(value = "/import")
+    public String importCsv(){
+        importerService.importCsv();
+        return "imported";
     }
 
 }

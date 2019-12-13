@@ -78,7 +78,7 @@ public interface DomainModelMapper {
                 device.getMemory(),
                 device.getHardDisk(),
                 device.getInstalledBiosVersion(),
-                device.getBiosDate().toString(),
+                device.getBiosDate() != null ? device.getBiosDate().toString() : "",
                 device.getSerialNumber(),
                 device.getMaintenance(),
                 device.getPreviousUser1(),
