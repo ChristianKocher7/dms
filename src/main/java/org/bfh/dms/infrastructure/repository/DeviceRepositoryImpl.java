@@ -51,4 +51,9 @@ public class DeviceRepositoryImpl implements DeviceRepository {
     public List<Device> findAll() {
         return this.jpaDeviceRepository.findAll();
     }
+
+    @Override
+    public List<Device> saveAll(List<Device> devices) {
+        return jpaDeviceRepository.saveAll(devices);
+    }
 }

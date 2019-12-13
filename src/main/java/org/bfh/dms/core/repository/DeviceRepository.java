@@ -30,4 +30,6 @@ public interface DeviceRepository {
      * @return list of all present devices
      */
     List<Device> findAll();
+
+    List<Device> saveAll(List<Device> devices);
 }
