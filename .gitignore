@@ -30,4 +30,4 @@ build/
 ### VS Code ###
 .vscode/
 
-org.bfh.dms.core.domain.Device
+org.bfh.dms.core.domain.Device/*
