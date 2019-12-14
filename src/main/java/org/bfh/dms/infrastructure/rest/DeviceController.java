@@ -65,7 +65,7 @@ public class DeviceController {
         return user;
     }
 
-    @GetMapping(value = "/device/{keyword}")
+    @GetMapping(value = "/devices/search/{keyword}")
     public List<GuiDeviceDto> search(@PathVariable String keyword){
         List<Device> search = searchService.search(keyword.toLowerCase());
         List<GuiDeviceDto> guiDeviceDtoList = new ArrayList<>();
