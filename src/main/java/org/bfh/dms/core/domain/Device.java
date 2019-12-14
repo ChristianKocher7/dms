@@ -20,6 +20,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 public class Device {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
