@@ -3,6 +3,9 @@ package org.bfh.dms.core.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,32 +22,56 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @Entity
+@Indexed
 public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Field(analyze = Analyze.YES)
     private String serialNumber;
 
     private LocalDate timestamp;
 
+    @Field(analyze = Analyze.YES)
     private String deviceName;
+
+    @Field(analyze = Analyze.YES)
     private String model;
+
+    @Field(analyze = Analyze.YES)
     private String deviceUser;
+
+    @Field(analyze = Analyze.YES)
     private String os;
+
+    @Field(analyze = Analyze.YES)
     private String build;
+
+    @Field(analyze = Analyze.YES)
     private String cpu;
+
+    @Field(analyze = Analyze.YES)
     private String memory;
+
+    @Field(analyze = Analyze.YES)
     private String hardDisk;
+
+    @Field(analyze = Analyze.YES)
     private String installedBiosVersion;
 
     private LocalDate biosDate;
 
     private LocalDate maintenance;
 
+    @Field(analyze = Analyze.YES)
     private String previousUser1;
+
+    @Field(analyze = Analyze.YES)
     private String previousUser2;
+
+    @Field(analyze = Analyze.YES)
     private int teamviewerId;
 
     private boolean obsolete;

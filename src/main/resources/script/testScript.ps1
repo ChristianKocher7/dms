@@ -69,8 +69,6 @@ If ($User -ne "") {
         teamviewerId = "123546"
     } | ConvertTo-Json
 
-    echo $JSON
-
     #basic error handling
     Invoke-WebRequest -Uri http://localhost:8080/script/device -Method POST -Body $JSON -ContentType "application/json"
 }
