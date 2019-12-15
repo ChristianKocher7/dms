@@ -22,7 +22,7 @@ public class DeviceTest {
     private static final LocalDate MAINTENANCE = LocalDate.now();
     private static final String PREVIOUS_USER_1 = "bob";
     private static final String PREVIOUS_USER_2 = "john";
-    private static final int TEAMVIEWER_ID = 1234;
+    private static final String TEAMVIEWER_ID = "1234";
     private static final boolean OBSOLETE = false;
 
     @Test

@@ -37,7 +37,7 @@ public class GuiDeviceDto {
 
     private String previousUser1;
     private String previousUser2;
-    private int teamviewerId;
+    private String teamviewerId;
 
     private boolean obsolete;
 
@@ -79,7 +79,7 @@ public class GuiDeviceDto {
                                   LocalDate maintenance,
                                   String previousUser1,
                                   String previousUser2,
-                                  int teamviewerId,
+                                  String teamviewerId,
                                   boolean obsolete) {
         GuiDeviceDto instance = new GuiDeviceDto();
         instance.timestamp = timestamp;

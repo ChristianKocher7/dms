@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ScriptController.class)
-public class ScriptControllerTest {
+public class ScriptControllerIT {
     @Autowired
     private MockMvc mvc;
 
@@ -35,8 +36,12 @@ public class ScriptControllerTest {
 
         doReturn(device).when(scriptService).processDevice(any(ScriptDeviceDto.class));
 
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", "Basic YWRtaW46MTIzNA==");
+
         mvc.perform(post("/script/device")
                 .content(getJsonString())
+                .headers(httpHeaders)
                 .characterEncoding("UTF-8")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

@@ -70,5 +70,5 @@ If ($User -ne "") {
     } | ConvertTo-Json
 
     #basic error handling
-    Invoke-WebRequest -Uri http://localhost:8080/script/device -Method POST -Body $JSON -ContentType "application/json"
+    Invoke-WebRequest -Uri http://localhost:8080/script/device -Method POST -Body $JSON -ContentType "application/json" -Headers @{'Authorization' = 'Basic YWRtaW46MTIzNA=='}
 }

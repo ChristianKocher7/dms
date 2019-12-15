@@ -72,7 +72,7 @@ public class Device {
     private String previousUser2;
 
     @Field(analyze = Analyze.YES)
-    private int teamviewerId;
+    private String teamviewerId;
 
     private boolean obsolete;
 
@@ -114,7 +114,7 @@ public class Device {
                             LocalDate maintenance,
                             String previousUser1,
                             String previousUser2,
-                            int teamviewerId,
+                            String teamviewerId,
                             boolean obsolete) {
         Device instance = new Device();
         instance.timestamp = timestamp;

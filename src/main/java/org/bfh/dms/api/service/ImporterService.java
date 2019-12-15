@@ -30,41 +30,36 @@ public class ImporterService {
     public void importCsv() {
         File file = new File("C:\\development\\projects\\bfh\\dms\\src\\main\\resources\\import\\ARGECPC_Inventar_Client.CSV");
         List<Device> devices = new ArrayList<>();
-        DateTimeFormatter formatter1;
-        DateTimeFormatter formatter2;
-        DateTimeFormatter formatter3;
 
-        Scanner sc = null;
-        try {
-            sc = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        try (Scanner sc = new Scanner(file)) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] values = line.split(";");
 
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            String[] values = line.split(";");
+                if (values.length == 17) {
+                    Device device = Device.of(parseDate(values[0]),
+                            values[1],
+                            values[2],
+                            values[3],
+                            values[4],
+                            values[5],
+                            values[6],
+                            values[7],
+                            values[8],
+                            values[9],
+                            parseDate(values[10]),
+                            values[11],
+                            parseDate(values[12]),
+                            values[13],
+                            values[14],
+                            values[15],
+                            parseBoolean(values[16]));
+                    devices.add(device);
+                }
 
-            if(values.length == 17) {
-                Device device = Device.of(parseDate(values[0]),
-                        values[1],
-                        values[2],
-                        values[3],
-                        values[4],
-                        values[5],
-                        values[6],
-                        values[7],
-                        values[8],
-                        values[9],
-                        parseDate(values[10]),
-                        values[11],
-                        parseDate(values[12]),
-                        values[13],
-                        values[14],
-                        parseInteger(values[15]),
-                        parseBoolean(values[16]));
-                devices.add(device);
             }
+        } catch (FileNotFoundException e) {
+            log.error(e.getMessage());
         }
 
         log.info("Importing {} new devices...", devices.size());
@@ -72,27 +67,19 @@ public class ImporterService {
         log.info("Imported {} new devices!", devices.size());
     }
 
-    private LocalDate parseDate(String date){
-        if(date.isEmpty()){
+    private LocalDate parseDate(String date) {
+        if (date.isEmpty()) {
             return null;
         }
-        if(date.contains(".")){
+        if (date.contains(".")) {
             return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        }else{
-            return LocalDate.parse(date,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } else {
+            return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         }
     }
 
-    private int parseInteger(String integer){
-        if(integer.isEmpty()){
-            return 0;
-        }
-
-        return Integer.parseInt(integer);
-    }
-
-    private boolean parseBoolean(String booleanString){
-        if(booleanString.isEmpty()){
+    private boolean parseBoolean(String booleanString) {
+        if (booleanString.isEmpty()) {
             return false;
         }
 

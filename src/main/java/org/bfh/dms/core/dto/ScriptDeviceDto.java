@@ -37,7 +37,7 @@ public class ScriptDeviceDto {
 
     private String previousUser1;
     private String previousUser2;
-    private int teamviewerId;
+    private String teamviewerId;
 
     private boolean obsolete;
 
@@ -78,7 +78,7 @@ public class ScriptDeviceDto {
                                      LocalDate maintenance,
                                      String previousUser1,
                                      String previousUser2,
-                                     int teamviewerId,
+                                     String teamviewerId,
                                      boolean obsolete) {
         ScriptDeviceDto instance = new ScriptDeviceDto();
         instance.timestamp = timestamp;

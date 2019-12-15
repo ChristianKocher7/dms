@@ -1,10 +1,9 @@
-package org.bfh.dms.controller;
+package org.bfh.dms.infrastructure.rest;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
