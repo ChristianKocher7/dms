@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,18 +50,6 @@ public class DeviceController {
     public List<GuiDeviceDto> getAllDevices() {
         System.out.println("getting all devices");
         return deviceService.getAllDevices();
-    }
-
-
-    /**
-     * GET mapping at url '/user' to find a specific user in the database
-     * @param user specific user
-     * @return Principal of the specific user
-     */
-    @GetMapping(value = "/user")
-    public Principal user(Principal user) {
-        System.out.println("getting logged in user" + user.getName());
-        return user;
     }
 
     @GetMapping(value = "/devices/search/{keyword}")

@@ -1,11 +1,9 @@
 $UserContext = whoami
 $User = $UserContext.SubString($UserContext.IndexOf("\")+1,$UserContext.Length-$UserContext.IndexOf("\")-1)
-If ($User.ToUpper() -like "SVC_*") { $User = "" }
-ElseIf ($User.ToUpper() -eq "ADMINISTRATOR") { $User = "" }
-ElseIf ($User.ToUpper() -eq "PUBLIC") { $User = "" }
+If ($User.ToUpper() -like "SVC_*") { $User = "STAGING" }
+ElseIf ($User.ToUpper() -eq "ADMINISTRATOR") { $User = "STAGING" }
+ElseIf ($User.ToUpper() -eq "PUBLIC") { $User = "STAGING" }
 
-#check if the server is present
-If ($User -ne "") {
     If ($User.IndexOf(".") -lt 0) {
         $User= $User.ToUpper()
     }
@@ -71,4 +69,4 @@ If ($User -ne "") {
 
     #basic error handling
     Invoke-WebRequest -Uri http://localhost:8080/script/device -Method POST -Body $JSON -ContentType "application/json" -Headers @{'Authorization' = 'Basic YWRtaW46MTIzNA=='}
-}
+

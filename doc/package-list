@@ -1,7 +1,6 @@
 org.bfh.dms
 org.bfh.dms.api.service
 org.bfh.dms.api.utils
-org.bfh.dms.controller
 org.bfh.dms.core.domain
 org.bfh.dms.core.dto
 org.bfh.dms.core.mapper

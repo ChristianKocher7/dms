@@ -3,6 +3,7 @@ package org.bfh.dms.infrastructure.rest;
 import org.bfh.dms.api.service.DeviceService;
 import org.bfh.dms.api.service.ImporterService;
 import org.bfh.dms.api.service.SearchService;
+import org.bfh.dms.core.domain.Device;
 import org.bfh.dms.core.dto.GuiDeviceDto;
 import org.bfh.dms.infrastructure.mock.MockFactory;
 import org.junit.Test;
@@ -56,15 +57,15 @@ public class DeviceControllerIT {
                 .characterEncoding("UTF-8")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-
         verify(deviceService, times(1)).getAllDevices();
     }
 
     @Test
     public void shouldReturnOkAndGetSearchResults() throws Exception {
-        GuiDeviceDto guiDeviceDto = MockFactory.createGuiDeviceDto();
-        List<GuiDeviceDto> guiDeviceDtoList = new ArrayList<>();
-        guiDeviceDtoList.add(guiDeviceDto);
+        Device device = MockFactory.createDevice();
+        List<Device> deviceList = new ArrayList<>();
+        deviceList.add(device);
+        doReturn(deviceList).when(searchService).search(anyString());
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Basic YWRtaW46MTIzNA==");

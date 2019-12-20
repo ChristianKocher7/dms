@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This service is used to import existing devices lists from CSV files
+ */
 @Slf4j
 @Service
 public class ImporterService {
@@ -26,6 +29,9 @@ public class ImporterService {
         this.deviceRepository = deviceRepository;
     }
 
+    /**
+     * imports a Windows Excel generated CSV file from the path resources\import\ARGECPC_Inventar_Client.CSV
+     */
     @Transactional
     public void importCsv() {
         File file = new File("C:\\development\\projects\\bfh\\dms\\src\\main\\resources\\import\\ARGECPC_Inventar_Client.CSV");
