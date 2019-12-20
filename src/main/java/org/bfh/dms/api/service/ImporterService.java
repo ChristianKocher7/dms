@@ -73,6 +73,11 @@ public class ImporterService {
         log.info("Imported {} new devices!", devices.size());
     }
 
+    /**
+     * parses a date string to the required format
+     * @param date date to be parsed
+     * @return parsed date
+     */
     private LocalDate parseDate(String date) {
         if (date.isEmpty()) {
             return null;
@@ -84,6 +89,11 @@ public class ImporterService {
         }
     }
 
+    /**
+     * parses a string 'true' or 'false' to a boolean
+     * @param booleanString boolean string to be parsed
+     * @return
+     */
     private boolean parseBoolean(String booleanString) {
         if (booleanString.isEmpty()) {
             return false;
