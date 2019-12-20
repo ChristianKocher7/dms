@@ -14,6 +14,9 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service used for fulltext device searches
+ */
 @Service
 public class SearchService {
 
@@ -29,6 +32,12 @@ public class SearchService {
         this.fields = initializeFieldsList();
     }
 
+    /**
+     * Searches in the database for devices by a keyword. The search has fulltext mapping.
+     * This search function uses the built in hibernate search functionality.
+     * @param keyword search term
+     * @return a list of devices which have a field containing the keyword
+     */
     @Transactional
     public List<Device> search(String keyword) {
 

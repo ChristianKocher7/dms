@@ -2,6 +2,8 @@
 This application is a tool used by an administrator to view all of the devices which
 employees are using. Including the specs, last login dates and maintenance details of a device.
 
+A script is installed on all of the devices which sends the relevant data via REST to our Backend to be processed.
+
 The application consists of 3 major components:
 
 1. The Backend - A Java based application built on Spring Boot (built with maven) where all processing of the devices 
@@ -68,3 +70,11 @@ Log in to the web app using
 
 user: admin
 password: 1234
+
+## Script
+
+In order to demo the script functionality navigate to:
+
+    C:\development\projects\bfh\dms\src\main\resources\script
+    
+and execute the script "script.ps1"
